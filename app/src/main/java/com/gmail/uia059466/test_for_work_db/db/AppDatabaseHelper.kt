@@ -2,20 +2,17 @@ package com.gmail.uia059466.test_for_work_db.db
 
 import android.content.ContentValues
 import android.content.Context
-import android.content.res.Resources
 import android.database.sqlite.SQLiteDatabase
 import android.database.sqlite.SQLiteOpenHelper
 import com.gmail.uia059466.test_for_work_db.account.accountedit.IconAccount
 import com.gmail.uia059466.test_for_work_db.db.account.AccountTable
 import com.gmail.uia059466.test_for_work_db.db.currency.UserCurrencyTable
+import com.gmail.uia059466.test_for_work_db.db.rates.UserRateTable
 import com.gmail.uia059466.test_for_work_db.db.transaction.TransactionTable
 
 class AppDatabaseHelper private constructor(
         context: Context
 ) : SQLiteOpenHelper(context.applicationContext, "app.db", null, 1) {
-
-    private val resources: Resources = context.resources
-//    private var categories: MutableList<Category> = loadCategories()
 
     override fun onCreate(db: SQLiteDatabase) {
         with(db) {

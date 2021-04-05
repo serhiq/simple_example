@@ -52,6 +52,9 @@
         <action
             android:id="@+id/action_accountDisplayFragment_to_addEditAccountFragment"
             app:destination="@id/addEditAccountFragment" />
+        <action
+            android:id="@+id/action_accountDisplayFragment_to_addEditTransactionFragment"
+            app:destination="@id/addEditTransactionFragment" />
     </fragment>
     <fragment
         android:id="@+id/navigation_transaction"

@@ -22,9 +22,5 @@ enum class IconAccount(val code: String,val resId:Int) {
     }
     
     fun toString(value: IconAccount): String = value.code
-
-    fun requestDefault(): IconAccount {
-      return CREDIT_CARD
-    }
   }
 }

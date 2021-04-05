@@ -2,9 +2,8 @@ package com.gmail.uia059466.test_for_work_db.db.rates
 
 import com.gmail.uia059466.test_for_work_db.db.AppDatabaseHelper
 import com.gmail.uia059466.test_for_work_db.db.HolderResult
-import com.gmail.uia059466.test_for_work_db.db.UserRateTable
 
-class DeleteRates(val idRates: Long
+class DeleteRates(private val idRates: Long
 
 ) {
 

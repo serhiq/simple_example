@@ -6,7 +6,7 @@ import androidx.lifecycle.viewModelScope
 import com.gmail.uia059466.test_for_work_db.account.accountedit.UserAccount
 import com.gmail.uia059466.test_for_work_db.db.HolderResult
 import com.gmail.uia059466.test_for_work_db.db.LocalDataSource
-import com.gmail.uia059466.test_for_work_db.utls.SingleLiveEvent
+import com.gmail.uia059466.test_for_work_db.utils.SingleLiveEvent
 import kotlinx.coroutines.launch
 
 class AccountDisplayViewModel(
@@ -15,7 +15,7 @@ class AccountDisplayViewModel(
 
     private val _account = SingleLiveEvent<UserAccount>()
     val account: LiveData<UserAccount> = _account
-    var currentAccountId: Long = 0
+    private var currentAccountId: Long = 0
 
     private val _runBack = SingleLiveEvent<Boolean>()
     val runBack: LiveData<Boolean> = _runBack

@@ -3,6 +3,7 @@ package com.gmail.uia059466.test_for_work_db.account.accountdisplay
 import android.os.Bundle
 import android.view.*
 import android.widget.FrameLayout
+import android.widget.LinearLayout
 import android.widget.TextView
 import androidx.activity.OnBackPressedCallback
 import androidx.core.os.bundleOf
@@ -13,7 +14,8 @@ import androidx.navigation.fragment.findNavController
 import com.gmail.uia059466.test_for_work_db.MainActivity
 import com.gmail.uia059466.test_for_work_db.R
 import com.gmail.uia059466.test_for_work_db.account.AmountFormatter
-import com.gmail.uia059466.test_for_work_db.utls.InjectorUtils
+import com.gmail.uia059466.test_for_work_db.db.transaction.TypeOperation
+import com.gmail.uia059466.test_for_work_db.utils.InjectorUtils
 import java.math.BigDecimal
 
 class AccountDisplayFragment : Fragment() {
@@ -23,8 +25,9 @@ class AccountDisplayFragment : Fragment() {
     private lateinit var tvAmount: TextView
     private lateinit var flEdit: FrameLayout
     private lateinit var flDelete: FrameLayout
-    private lateinit var cvIncome: FrameLayout
-    private lateinit var cvOutcome: FrameLayout
+
+    private lateinit var llIncome: LinearLayout
+    private lateinit var llOutcome: LinearLayout
 
     override fun onCreateView(
             inflater: LayoutInflater,
@@ -40,9 +43,9 @@ class AccountDisplayFragment : Fragment() {
         tvAmount = view.findViewById(R.id.amount_tv)
         flEdit = view.findViewById(R.id.edit_fl)
         flDelete = view.findViewById(R.id.delete_fl)
-        cvIncome = view.findViewById(R.id.income_cv)
-        cvOutcome = view.findViewById(R.id.outcome_cv)
 
+        llIncome= view.findViewById(R.id.income_ll)
+        llOutcome= view.findViewById(R.id.outcome_ll)
         setupViewModel()
         setupObservers()
 
@@ -56,9 +59,30 @@ class AccountDisplayFragment : Fragment() {
         return view
     }
 
+    private fun navigateToCreateOutcome(idAccount: Long) {
+        val action=R.id.action_accountDisplayFragment_to_addEditTransactionFragment
+        val bundle = bundleOf("idAccount" to idAccount,"codeOperation" to TypeOperation.OUTCOME.code)
+        findNavController().navigate(action,bundle)
+    }
+
+    private fun navigateToCreateIncome(idAccount: Long) {
+            val action=R.id.action_accountDisplayFragment_to_addEditTransactionFragment
+        val bundle = bundleOf("idAccount" to idAccount,"codeOperation" to TypeOperation.INCOME.code)
+            findNavController().navigate(action,bundle)
+    }
+
     private fun setupObservers() {
         viewModel.account.observe(viewLifecycleOwner, Observer {
             it?.let { account ->
+                llIncome.setOnClickListener {
+                    navigateToCreateIncome(account.id)
+                }
+
+                llOutcome.setOnClickListener {
+                    navigateToCreateOutcome(account.id)
+                }
+
+
                 (activity as MainActivity).renderTitle(title = account.title)
                 tvAmount.text = AmountFormatter.createAmountString(account.amount.divide(BigDecimal(100)))
 
@@ -74,13 +98,6 @@ class AccountDisplayFragment : Fragment() {
                     val action = R.id.action_accountDisplayFragment_to_addEditAccountFragment
                     val bundle = bundleOf("idAccount" to account.id)
                     findNavController().navigate(action, bundle)
-                }
-
-                cvIncome.setOnClickListener {
-
-                }
-                cvOutcome.setOnClickListener {
-
                 }
             }
         })
@@ -102,8 +119,6 @@ class AccountDisplayFragment : Fragment() {
         viewModel = ViewModelProvider(this, viewModelFactory)[AccountDisplayViewModel::class.java]
 
         val idAccount = arguments?.getLong("idAccount") ?: 0L
-//        todo on back when 0
-
         viewModel.start(idAccount)
     }
 
@@ -137,8 +152,8 @@ class AccountDisplayFragment : Fragment() {
         findNavController().navigateUp()
     }
 
-    override fun onPause() {
-        super.onPause()
+    override fun onResume() {
+        super.onResume()
         viewModel.refresh()
     }
 }

@@ -12,21 +12,23 @@ import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.fragment.findNavController
 import com.gmail.uia059466.test_for_work_db.MainActivity
 import com.gmail.uia059466.test_for_work_db.R
+import com.gmail.uia059466.test_for_work_db.account.accountedit.UserAccount
 import com.gmail.uia059466.test_for_work_db.db.transaction.SelectCurrencyWithRubDialogFragment
 import com.gmail.uia059466.test_for_work_db.db.transaction.TransactionEditTextState
-import com.gmail.uia059466.test_for_work_db.utls.InjectorUtils
+import com.gmail.uia059466.test_for_work_db.db.transaction.TypeOperation
+import com.gmail.uia059466.test_for_work_db.utils.InjectorUtils
 import com.google.android.material.datepicker.MaterialDatePicker
 import com.google.android.material.snackbar.Snackbar
 import java.math.BigDecimal
 import java.text.SimpleDateFormat
 
-class AddEditTransactionFragment : Fragment(){
+class AddEditTransactionFragment : Fragment() {
 
     private lateinit var viewModel: AddEditTransactionViewModel
 
-    private lateinit var content:LinearLayout
+    private lateinit var content: LinearLayout
 
-    private lateinit var caption:LinearLayout
+    private lateinit var caption: LinearLayout
 
     private lateinit var vDividerCurrency: View
     private lateinit var rvAmountCurrency: RelativeLayout
@@ -39,14 +41,16 @@ class AddEditTransactionFragment : Fragment(){
     private lateinit var rvDate: RelativeLayout
     private lateinit var rvAccount: RelativeLayout
     private lateinit var tvAccount: TextView
+    private lateinit var imgAccount: ImageView
+
     private lateinit var rvCurrency: RelativeLayout
     private lateinit var etComment: EditText
 
-    private lateinit var etRubPrimaryAmount:EditText
-    private lateinit var etRubSecondaryAmount:EditText
+    private lateinit var etRubPrimaryAmount: EditText
+    private lateinit var etRubSecondaryAmount: EditText
 
-    private lateinit var etCurrPrimaryAmount:EditText
-    private lateinit var etCurrSecondaryAmount:EditText
+    private lateinit var etCurrPrimaryAmount: EditText
+    private lateinit var etCurrSecondaryAmount: EditText
 
     override fun onCreateView(
             inflater: LayoutInflater,
@@ -59,14 +63,14 @@ class AddEditTransactionFragment : Fragment(){
                 container,
                 false
         )
-        content=view.findViewById(R.id.add_edit_transaction_content)
+        content = view.findViewById(R.id.add_edit_transaction_content)
         caption = view.findViewById(R.id.caption_ll)
 
-        etRubPrimaryAmount =view.findViewById(R.id.primary_main_edit_text)
-        etRubSecondaryAmount=view.findViewById(R.id.main_secondary_currency)
+        etRubPrimaryAmount = view.findViewById(R.id.primary_main_edit_text)
+        etRubSecondaryAmount = view.findViewById(R.id.main_secondary_currency)
 
-        etCurrPrimaryAmount=view.findViewById(R.id.primary_secondary_edit_text)
-        etCurrSecondaryAmount=view.findViewById(R.id.secondary_secondary_currency)
+        etCurrPrimaryAmount = view.findViewById(R.id.primary_secondary_edit_text)
+        etCurrSecondaryAmount = view.findViewById(R.id.secondary_secondary_currency)
 
         vDividerCurrency = view.findViewById(R.id.divider_currency)
         tvAmountCurrencyTitle = view.findViewById(R.id.amount_secondary_title_tv)
@@ -85,6 +89,8 @@ class AddEditTransactionFragment : Fragment(){
         rvAccount = view.findViewById(R.id.account_rl)
 
         tvAccount = view.findViewById(R.id.account_current_tv)
+
+        imgAccount = view.findViewById(R.id.img_account)
 
         rvCurrency = view.findViewById(R.id.currency_rl)
 
@@ -155,9 +161,14 @@ class AddEditTransactionFragment : Fragment(){
             }
         })
 
-
         viewModel.transactionD.observe(viewLifecycleOwner, Observer {
             it?.let { trans ->
+                tvAccount.text = trans.account.title
+                imgAccount.setImageResource(trans.account.iconAccount.resId)
+                rvAccount.setOnClickListener {
+                    displaySelectAccountDialog(trans.account)
+                }
+
                 if (trans.fromCurrency == null || trans.fromCurrency == "RUB") {
                     tvAmountCurrency.text = "RUB"
                     clearAndHideCurrencyContainer()
@@ -192,6 +203,19 @@ class AddEditTransactionFragment : Fragment(){
 
     }
 
+    private fun displaySelectAccountDialog(account: UserAccount) {
+
+        val dialog = SelectAccountDialogFragment()
+        dialog.exsistLisAccount.addAll(viewModel.listAccount)
+        dialog.selectedNow = account
+        dialog.onOk = {
+            viewModel.selectAccount(dialog.selectedNow)
+            dialog.dismiss()
+        }
+
+        requireActivity().supportFragmentManager.let { dialog.show(it, "editWord") }
+    }
+
     private val rubSumChanger: TextWatcher = object : TextWatcher {
         override fun afterTextChanged(s: Editable) {
             updateCalcNewSumInRub()
@@ -211,8 +235,8 @@ class AddEditTransactionFragment : Fragment(){
     }
 
     private fun updateCalcNewSumInRub() {
-        val result =RateCalculator.calculateInRub(etRate.text.toString(),
-                                                  NumberStr(etCurrPrimaryAmount.text.toString(), etCurrSecondaryAmount.text.toString()))
+        val result = RateCalculator.calculateInRub(etRate.text.toString(),
+                                                   NumberStr(etCurrPrimaryAmount.text.toString(), etCurrSecondaryAmount.text.toString()))
         etRubPrimaryAmount.setText(result.integerNumberPart)
         etRubSecondaryAmount.setText(result.fractionNumberPart)
     }
@@ -236,11 +260,12 @@ class AddEditTransactionFragment : Fragment(){
     }
 
     private fun updateSumCurrency() {
-        val result =RateCalculator.calculateInCurrencyAmount(etRate.text.toString(),
-                                                  NumberStr(etRubPrimaryAmount.text.toString(), etRubSecondaryAmount.text.toString()))
+        val result = RateCalculator.calculateInCurrencyAmount(etRate.text.toString(),
+                                                              NumberStr(etRubPrimaryAmount.text.toString(), etRubSecondaryAmount.text.toString()))
         etCurrPrimaryAmount.setText(result.integerNumberPart)
         etCurrSecondaryAmount.setText(result.fractionNumberPart)
     }
+
     private fun setupTextWatcherOnEditText() {
         etRate.addTextChangedListener(rubSumChanger)
         etCurrPrimaryAmount.addTextChangedListener(rubSumChanger)
@@ -257,36 +282,34 @@ class AddEditTransactionFragment : Fragment(){
     }
 
     private fun displayDatePicker() {
-            val builder = MaterialDatePicker.Builder.datePicker()
-            builder.setTitleText("Выбирите дату операции")
-            val picker = builder.build()
-            picker.addOnPositiveButtonClickListener { selection ->
-                viewModel.selectDate(selection)
-            }
-            picker.show(parentFragmentManager, "date_picker_tag")
+        val builder = MaterialDatePicker.Builder.datePicker()
+        builder.setTitleText("Выбирите дату операции")
+        val picker = builder.build()
+        picker.addOnPositiveButtonClickListener { selection ->
+            viewModel.selectDate(selection)
+        }
+        picker.show(parentFragmentManager, "date_picker_tag")
     }
 
     private fun clearAndHideCurrencyContainer() {
-        llRateContatiner.visibility=View.GONE
-        rvAmountCurrency.visibility=View.GONE
-        viewModel.clearEtCurrency()
-
+        llRateContatiner.visibility = View.GONE
+        rvAmountCurrency.visibility = View.GONE
     }
 
     private fun showCurrencyContainer() {
-        llRateContatiner.visibility=View.VISIBLE
-        rvAmountCurrency.visibility=View.VISIBLE
+        llRateContatiner.visibility = View.VISIBLE
+        rvAmountCurrency.visibility = View.VISIBLE
     }
 
     private fun displayCurrencyPickerDialog(fromCurrency: String?) {
 
         val dialog = SelectCurrencyWithRubDialogFragment()
 
-        val exsistCurrency=viewModel.listCurrency.map { it.code }
+        val exsistCurrency = viewModel.listCurrency.map { it.code }
 
-        val nowRate=fromCurrency?:"RUB"
-            dialog.exsistListCurrency.addAll(exsistCurrency)
-            dialog.selectedNow=nowRate
+        val nowRate = fromCurrency ?: "RUB"
+        dialog.exsistListCurrency.addAll(exsistCurrency)
+        dialog.selectedNow = nowRate
 
         dialog.onOk = {
             viewModel.selectCurrency(dialog.selectedNow)
@@ -299,35 +322,35 @@ class AddEditTransactionFragment : Fragment(){
 
     private fun requestCurrentEditTextState(): TransactionEditTextState {
 
-        val currentCurrency=viewModel.transactionD.value?.fromCurrency
-     return if (currentCurrency!=null&&currentCurrency!="RUB"){
-           TransactionEditTextState(
-                   amountRub = etRubPrimaryAmount.text.toString(),
-                   amountKop = requestNumberWithAdd(etRubSecondaryAmount),
-                   amountCurrency = etCurrPrimaryAmount.text.toString(),
-                   amountOst = requestNumberWithAdd(etCurrPrimaryAmount),
-                   comment = etComment.text.toString(),
-                   isUseCurrency = true)
+        val currentCurrency = viewModel.transactionD.value?.fromCurrency
+        return if (currentCurrency != null && currentCurrency != "RUB") {
+            TransactionEditTextState(
+                    amountRub = etRubPrimaryAmount.text.toString(),
+                    amountKop = requestNumberWithAdd(etRubSecondaryAmount),
+                    amountCurrency = etCurrPrimaryAmount.text.toString(),
+                    amountOst = requestNumberWithAdd(etCurrPrimaryAmount),
+                    comment = etComment.text.toString(),
+                    isUseCurrency = true)
 
-        } else{
-           TransactionEditTextState(
-                   amountRub = etRubPrimaryAmount.text.toString(),
-                   amountKop = requestNumberWithAdd(etRubSecondaryAmount),
-                   amountCurrency = BigDecimal.ZERO.toPlainString(),
-                   amountOst = BigDecimal.ZERO.toPlainString(),
-                   comment = etComment.text.toString(),
-                   isUseCurrency = false)
+        } else {
+            TransactionEditTextState(
+                    amountRub = etRubPrimaryAmount.text.toString(),
+                    amountKop = requestNumberWithAdd(etRubSecondaryAmount),
+                    amountCurrency = BigDecimal.ZERO.toPlainString(),
+                    amountOst = BigDecimal.ZERO.toPlainString(),
+                    comment = etComment.text.toString(),
+                    isUseCurrency = false)
         }
     }
 
     private fun requestNumberWithAdd(et: EditText): String {
-        val text=et.text.trim().toString()
-        if (text.length==1){
+        val text = et.text.trim().toString()
+        if (text.length == 1) {
             return "${text}0"
-        } else if (text.length==2) {
+        } else if (text.length == 2) {
             return text
         }
-         return   "0"
+        return "0"
     }
 
 
@@ -335,8 +358,10 @@ class AddEditTransactionFragment : Fragment(){
         val application = requireNotNull(this.activity).application
         val viewModelFactory = InjectorUtils.provideViewModelFactory(application)
         viewModel = ViewModelProvider(this, viewModelFactory)[AddEditTransactionViewModel::class.java]
-        val idAccount = arguments?.getLong("idTransaction")?:0L
-       viewModel.start(idAccount)
+        val idTransaction = arguments?.getLong("idTransaction") ?: 0L
+        val codeOperation = arguments?.getString("codeOperation") ?: TypeOperation.OUTCOME.code
+        val accountId = arguments?.getLong("idAccount") ?: 0L
+        viewModel.start(idTransaction, codeOperation, accountId)
     }
 
     override fun onCreateOptionsMenu(menu: Menu,
@@ -356,7 +381,6 @@ class AddEditTransactionFragment : Fragment(){
             R.id.menu_save -> {
                 viewModel.trySave(requestCurrentEditTextState())
             }
-
         }
         return super.onOptionsItemSelected(item)
     }

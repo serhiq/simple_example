@@ -6,7 +6,7 @@ import android.view.ViewGroup
 import android.widget.ImageView
 import androidx.recyclerview.widget.RecyclerView
 import com.gmail.uia059466.test_for_work_db.R
-import com.gmail.uia059466.test_for_work_db.utls.getThemeColor
+import com.gmail.uia059466.test_for_work_db.utils.getThemeColor
 
 class AccountIconAdapter(val selected: IconAccount,
                          private val listener: IconListener)

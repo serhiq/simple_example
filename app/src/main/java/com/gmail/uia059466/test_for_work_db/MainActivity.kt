@@ -1,8 +1,8 @@
 package com.gmail.uia059466.test_for_work_db
 
-import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.view.View
+import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.widget.Toolbar
 import androidx.navigation.NavController
 import androidx.navigation.fragment.NavHostFragment
@@ -23,17 +23,18 @@ class MainActivity : AppCompatActivity() {
         setupToolbar()
 
         val navHostFragment =
-            supportFragmentManager.findFragmentById(R.id.nav_host_fragment) as NavHostFragment
+                supportFragmentManager.findFragmentById(R.id.nav_host_fragment) as NavHostFragment
         navController = navHostFragment.navController
 
         bottomNavigation = findViewById(R.id.bottom_navigation)
 
         val appBarConfiguration = AppBarConfiguration(setOf(
-            R.id.navigation_accounts_list, R.id.navigation_transaction, R.id.navigate_setting))
+                R.id.navigation_accounts_list, R.id.navigation_transaction, R.id.navigate_setting))
         setupActionBarWithNavController(navController, appBarConfiguration)
         bottomNavigation.setupWithNavController(navController)
 
     }
+
     private fun setupToolbar() {
         val toolbar = findViewById<Toolbar>(R.id.toolbar)
         setSupportActionBar(toolbar)
@@ -46,11 +47,12 @@ class MainActivity : AppCompatActivity() {
         }
         supportActionBar?.title = title
     }
+
     fun hideBottomNavigation() {
-        bottomNavigation.visibility= View.GONE
+        bottomNavigation.visibility = View.GONE
     }
 
-    fun showBottomNavigation(){
-        bottomNavigation.visibility= View.VISIBLE
+    fun showBottomNavigation() {
+        bottomNavigation.visibility = View.VISIBLE
     }
 }

@@ -13,7 +13,7 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.gmail.uia059466.test_for_work_db.MainActivity
 import com.gmail.uia059466.test_for_work_db.R
-import com.gmail.uia059466.test_for_work_db.utls.InjectorUtils
+import com.gmail.uia059466.test_for_work_db.utils.InjectorUtils
 import com.google.android.material.snackbar.Snackbar
 
 class AccountsListFragment : Fragment(), AccountsAdapter.AccountListListener {
@@ -46,7 +46,9 @@ class AccountsListFragment : Fragment(), AccountsAdapter.AccountListListener {
         listRv.layoutManager = LinearLayoutManager(activity)
         listRv.adapter = adapter
 
-        (activity as MainActivity).renderTitle("Cчeта")
+        val title=getString(R.string.accounts_list_title)
+        (activity as MainActivity).renderTitle(title)
+
         (activity as MainActivity).showBottomNavigation()
 
         (activity as MainActivity).supportActionBar?.setDisplayHomeAsUpEnabled(false)
@@ -119,7 +121,6 @@ class AccountsListFragment : Fragment(), AccountsAdapter.AccountListListener {
                     }
                 })
     }
-
 
     private fun goBack() {
         findNavController().navigateUp()

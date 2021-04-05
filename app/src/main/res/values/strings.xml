@@ -1,7 +1,24 @@
 <resources>
     <string name="app_name">test_for_work_db</string>
 
-<!--Диалог для выбор валют-->
+<!--    Account Display-->
+    <string name="account_display_income">Поступление</string>
+    <string name="account_display_outcome">Расход</string>
+
+<!--   AddEditAcount fragment-->
+
+    val title=getString(R.string.add_edit_account_title)
+    (activity as MainActivity).renderTitle(title)
+
+
+    <string name="add_edit_account_title">Новый счёт</string>
+    <string name="accounts_list_title">Счета</string>
+    <string name="currencies_list_title">Валюты</string>
+    <string name="rates_list_title">Курс валют</string>
+    <string name="rates_add_title">Обменный курс</string>
+    <string name="setting_title">Настройки</string>
+
+    <!--Диалог для выбор валют-->
     <string name="dialog_select_currency">Валюты</string>
     <string name="no_delete_rub">Основную валюту удалить нелья</string>
     <string name="dialog_select_currency_in">В валюту</string>
@@ -16,12 +33,14 @@
 
     <!-- Dialog delete   -->
     <string name="dialog_delete_user_title">Удалить счет</string>
-    <string name="dialog_delete_user_message">Все транзакции будут удалены вместе со счетом.</string>
+    <string name="dialog_delete_user_message">Вы уверены что хотите удалить счет ?</string>
     <string name="dialog_delete_user_button">Удалить</string>
 
     <!--Transaction-->
+    <string name="transaction_title">Транзакции</string>
     <string name="dialog_select_currency_transaction">Валюта операции</string>
     <string name="summ_zero">Сумма не может быть 0</string>
+    <string name="dialog_select_account">Выбор счета</string>
 
 
 </resources>

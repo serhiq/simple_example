@@ -14,7 +14,7 @@ object TransactionTable {
     const val COLUMN_CODE_AMOUNT = "amount"
     const val COLUMN_CODE_FROM_AMOUNT = "from_amount"
     const val COLUMN_CODE_FROM_CURRENCY = "from_currency"
-    @JvmField val CREATE = """CREATE TABLE $TABLE_NAME (
+    const val CREATE = """CREATE TABLE $TABLE_NAME (
                                 $COLUMN_ID  INTEGER PRIMARY KEY AUTOINCREMENT, 
                                 $COLUMN_CODE_TRANSACTION TEXT NOT NULL, 
                                 $COLUMN_FROM_ACCOUNT_ID INTEGER NOT NULL, 

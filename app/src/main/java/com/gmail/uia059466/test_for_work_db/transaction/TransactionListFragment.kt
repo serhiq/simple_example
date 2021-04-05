@@ -12,8 +12,7 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.gmail.uia059466.test_for_work_db.MainActivity
 import com.gmail.uia059466.test_for_work_db.R
-import com.gmail.uia059466.test_for_work_db.utls.InjectorUtils
-import com.google.android.material.floatingactionbutton.FloatingActionButton
+import com.gmail.uia059466.test_for_work_db.utils.InjectorUtils
 import com.google.android.material.snackbar.Snackbar
 
 class TransactionListFragment : Fragment(), TransactionAdapter.Listener {
@@ -26,22 +25,19 @@ class TransactionListFragment : Fragment(), TransactionAdapter.Listener {
     private val adapter = TransactionAdapter(this)
 
     override fun onCreateView(
-        inflater: LayoutInflater, container: ViewGroup?,
-        savedInstanceState: Bundle?
+            inflater: LayoutInflater,
+            container: ViewGroup?,
+            savedInstanceState: Bundle?
     ): View? {
 
         val view = inflater.inflate(
-            R.layout.transaction_list_fragment,
-            container,
-            false
+                R.layout.transaction_list_fragment,
+                container,
+                false
         )
         coordinatorLayout = view.findViewById<CoordinatorLayout>(R.id.transaction_list_content)
 
         listRv = view.findViewById(R.id.list)
-        val fabAdd = view.findViewById<FloatingActionButton>(R.id.add_fab)
-        fabAdd.setOnClickListener {
-            navigateToCreateTransaction()
-        }
 
         setupViewModel()
         setupObservers()
@@ -49,7 +45,9 @@ class TransactionListFragment : Fragment(), TransactionAdapter.Listener {
         listRv.layoutManager = LinearLayoutManager(activity)
         listRv.adapter = adapter
 
-        (activity as MainActivity).renderTitle("Транзакции")
+        val title=getString(R.string.transaction_title)
+        (activity as MainActivity).renderTitle(title)
+
         (activity as MainActivity).showBottomNavigation()
 
         (activity as MainActivity).supportActionBar?.setDisplayHomeAsUpEnabled(false)
@@ -68,8 +66,8 @@ class TransactionListFragment : Fragment(), TransactionAdapter.Listener {
             }
         })
         viewModel.snackbarText.observe(viewLifecycleOwner, Observer {
-            it?.let {text->
-                val snackBar = Snackbar.make(coordinatorLayout,it, Snackbar.LENGTH_LONG)
+            it?.let { text ->
+                val snackBar = Snackbar.make(coordinatorLayout, it, Snackbar.LENGTH_LONG)
                 snackBar.show()
             }
         })
@@ -81,19 +79,12 @@ class TransactionListFragment : Fragment(), TransactionAdapter.Listener {
         viewModel = ViewModelProvider(this, viewModelFactory)[TransactionViewModel::class.java]
     }
 
-    private fun navigateToCreateTransaction() {
-        val action=R.id.action_navigation_transaction_to_addEditTransactionFragment
-        findNavController().navigate(action)
-    }
 
     override fun onListClicked(id: Long) {
-    //        val action = R.id.action_accountsListFragment_to_accountDisplayFragment
-//        val bundle = bundleOf("idAccount" to id)
-//        findNavController().navigate(action, bundle)
-
     }
 
-    override fun onCreateOptionsMenu(menu: Menu, inflater: MenuInflater) {
+    override fun onCreateOptionsMenu(menu: Menu,
+                                     inflater: MenuInflater) {
         menu.clear()
     }
 
@@ -103,7 +94,7 @@ class TransactionListFragment : Fragment(), TransactionAdapter.Listener {
                 goBack()
                 return true
             }
-       }
+        }
         return super.onOptionsItemSelected(item)
     }
 

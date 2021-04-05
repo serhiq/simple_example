@@ -8,11 +8,9 @@ import com.gmail.uia059466.test_for_work_db.account.accountedit.UserAccount
 import com.gmail.uia059466.test_for_work_db.db.HolderResult
 import com.gmail.uia059466.test_for_work_db.db.LocalDataSource
 import com.gmail.uia059466.test_for_work_db.db.currency.UserCurrency
-import com.gmail.uia059466.test_for_work_db.db.transaction.AddUserTransaction
 import com.gmail.uia059466.test_for_work_db.db.transaction.TransactionEditTextState
-import com.gmail.uia059466.test_for_work_db.transaction.TransactionSingleDisplay
-import com.gmail.uia059466.test_for_work_db.transaction.TransactionType
-import com.gmail.uia059466.test_for_work_db.utls.SingleLiveEvent
+import com.gmail.uia059466.test_for_work_db.db.transaction.TypeOperation
+import com.gmail.uia059466.test_for_work_db.utils.SingleLiveEvent
 import kotlinx.coroutines.launch
 import java.math.BigDecimal
 import java.util.*
@@ -39,10 +37,12 @@ class AddEditTransactionViewModel(
     private val _runBack = SingleLiveEvent<Boolean>()
     val runBack: LiveData<Boolean> = _runBack
 
-    var idTransaction = 0L
+    private var idTransaction = 0L
+    private var idAccount = 0L
 
     val listAccount = mutableListOf<UserAccount>()
     val listCurrency = mutableListOf<UserCurrency>()
+    private var codeOperation = TypeOperation.OUTCOME.code
 
 
     init {
@@ -56,8 +56,12 @@ class AddEditTransactionViewModel(
             if (accounts is HolderResult.Success) {
                 listAccount.addAll(accounts.data)
                 if (idTransaction == 0L) {
+                    val selectedAccount = listAccount.find { it.id == idAccount }
+                            ?: listAccount.first()
+
+
                     _transactionD.postValue(TransactionSingleDisplay(
-                            id = 0, codeTransaction = TransactionType.OUTCOME.code, account = listAccount.first(), date = Date(), note = "", amount = BigDecimal.ZERO, fromAmount = BigDecimal.ZERO, fromCurrency = Currency.getInstance("RUB").currencyCode))
+                            id = 0, codeOperation, account = selectedAccount, date = Date(), note = "", amount = BigDecimal.ZERO, fromAmount = BigDecimal.ZERO, fromCurrency = Currency.getInstance("RUB").currencyCode))
 
                     _stateEditTextState.postValue(TransactionEditTextState(
                             isUseCurrency = false,
@@ -73,9 +77,12 @@ class AddEditTransactionViewModel(
     }
 
 
-    fun start(id: Long) {
-
+    fun start(id: Long,
+              operation: String,
+              bundleIdAccount: Long) {
+        idAccount = bundleIdAccount
         idTransaction = id
+        codeOperation = operation
         if (idTransaction == 0L) {
 
             _isVisibleEditMode.postValue(false)
@@ -92,21 +99,23 @@ class AddEditTransactionViewModel(
             if (old != null) {
                 val new = old.copy(fromCurrency = selectedNow)
                 _transactionD.postValue(new)
-                updateEditTextState(selectedNow)
+                updateRate(selectedNow, old.date)
             }
         }
     }
 
-    private fun updateEditTextState(selectedNow: String) {
-        if (selectedNow==Currency.getInstance("RUB").currencyCode){
-            
-            
-        }else{
-            
+    private fun updateRate(selectedNow: String,
+                           date: Date) {
+
+
+        viewModelScope.launch {
+            val result = localDataSource.getRate(selectedNow, date)
+            if (result is HolderResult.Success) {
+                _stateRate.postValue(result.data)
+            }
         }
-            
-        
     }
+
 
     fun selectDate(date: Long) {
         val newDate = Date(date)
@@ -124,6 +133,7 @@ class AddEditTransactionViewModel(
             save(state)
         }
     }
+
     private fun save(state: TransactionEditTextState) {
         val old = _transactionD.value
         if (old != null) {
@@ -132,7 +142,7 @@ class AddEditTransactionViewModel(
             val new = old.copy(amount = state.requestAmoutInKop(), fromAmount = state.requestCurrencyAmount(), note = state.comment
                     ?: " ")
             when (idTransaction == 0L) {
-              true -> insertNewTransaction(new)
+                true -> insertNewTransaction(new)
 //      false -> updateAccount(new)
             }
         }
@@ -145,15 +155,24 @@ class AddEditTransactionViewModel(
         }
     }
 
-    fun updateEditTextStateT(old:TransactionEditTextState,codeCurrency:String) {
-        if (codeCurrency==Currency.getInstance("RUB").currencyCode) {
-            val new = old.copy(isUseCurrency = false,amountCurrency = BigDecimal.ZERO.toPlainString(),amountOst = BigDecimal.ZERO.toPlainString())
+    fun updateEditTextStateT(old: TransactionEditTextState,
+                             codeCurrency: String) {
+        if (codeCurrency == Currency.getInstance("RUB").currencyCode) {
+            val new = old.copy(isUseCurrency = false, amountCurrency = BigDecimal.ZERO.toPlainString(), amountOst = BigDecimal.ZERO.toPlainString())
             _stateEditTextState.postValue(new)
             _stateRate.postValue("1")
-        }else{
-            val new = old.copy(isUseCurrency = true,amountCurrency = BigDecimal.ZERO.toPlainString(),amountOst = BigDecimal.ZERO.toPlainString())
+        } else {
+            val new = old.copy(isUseCurrency = true, amountCurrency = BigDecimal.ZERO.toPlainString(), amountOst = BigDecimal.ZERO.toPlainString())
             _stateEditTextState.postValue(new)
             _stateRate.postValue("1")
+        }
+    }
+
+    fun selectAccount(newAccount: UserAccount?) {
+        val old = _transactionD.value
+        if (old != null && newAccount != null) {
+            val new = old.copy(account = newAccount)
+            _transactionD.postValue(new)
         }
     }
 }

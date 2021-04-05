@@ -3,9 +3,7 @@ package com.gmail.uia059466.test_for_work_db.db.transaction
 import android.database.Cursor
 import com.gmail.uia059466.test_for_work_db.db.AppDatabaseHelper
 import com.gmail.uia059466.test_for_work_db.db.HolderResult
-import com.gmail.uia059466.test_for_work_db.transaction.TransactionDataBase
 import java.math.BigDecimal
-import java.util.*
 
 class GetAllTransactionDatabase {
     fun execute(db: AppDatabaseHelper): HolderResult<List<TransactionDataBase>> {

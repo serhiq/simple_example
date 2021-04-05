@@ -6,7 +6,7 @@ import com.gmail.uia059466.test_for_work_db.db.HolderResult
 import java.util.*
 
 class GetAUserCurrencyById(
-        val rowId: Long
+        private val rowId: Long
 
 ) {
 

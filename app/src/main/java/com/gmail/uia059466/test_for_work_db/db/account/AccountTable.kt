@@ -12,7 +12,7 @@ object AccountTable {
     const val COLUMN_AMOUNT = "amount"
 
 
-    @JvmField val CREATE = """CREATE TABLE $TABLE_NAME (
+    const val CREATE = """CREATE TABLE $TABLE_NAME (
                                 $COLUMN_ID  INTEGER PRIMARY KEY AUTOINCREMENT, 
                                 $COLUMN_TITLE TEXT NOT NULL, 
                                 $COLUMN_CODE_ICON TEXT NOT NULL, 

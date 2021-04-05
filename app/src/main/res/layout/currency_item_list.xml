@@ -19,7 +19,6 @@
         android:layout_marginStart="-4dp"
         android:minWidth="60dp" />
 
-    <!--todo чтобы не забегало-->
     <TextView
         android:id="@+id/currencies_title_tv"
         android:layout_width="match_parent"

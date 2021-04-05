@@ -3,7 +3,7 @@ package com.gmail.uia059466.test_for_work_db.db.currency
 import com.gmail.uia059466.test_for_work_db.db.AppDatabaseHelper
 import com.gmail.uia059466.test_for_work_db.db.HolderResult
 
-class DeleteCurrency(val idUserCurrency: Long) {
+class DeleteCurrency(private val idUserCurrency: Long) {
 
     fun execute(db: AppDatabaseHelper): HolderResult.Success<Int> {
 

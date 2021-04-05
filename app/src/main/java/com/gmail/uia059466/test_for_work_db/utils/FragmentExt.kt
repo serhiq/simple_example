@@ -1,4 +1,4 @@
-package com.gmail.uia059466.test_for_work_db.utls
+package com.gmail.uia059466.test_for_work_db.utils
 
 import android.app.Activity
 import android.view.inputmethod.InputMethodManager

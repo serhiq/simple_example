@@ -1,17 +1,19 @@
 package com.gmail.uia059466.test_for_work_db.transaction.addedittransaction
 
-object RateCalculator{
+import kotlin.math.abs
+
+object RateCalculator {
 
     fun calculateInRub(rateStr: String,
-                       amountCurrencyStr: NumberStr):NumberStr{
-        val r=requestRate(rateStr)
-        val amountFrom =requestAmount(amountCurrencyStr)
+                       amountCurrencyStr: NumberStr): NumberStr {
+        val r = requestRate(rateStr)
+        val amountFrom = requestAmount(amountCurrencyStr)
         val resultAmount = Math.round(r * amountFrom)
 
-        val absAmount = Math.abs(resultAmount)
+        val absAmount = abs(resultAmount)
         val numPart1 = absAmount / 100
         val y = absAmount - 100 * numPart1
-        val numPart2=String.format("%02d", y)
+        val numPart2 = String.format("%02d", y)
         return NumberStr(numPart1.toString(), numPart2.toString())
 
     }
@@ -33,7 +35,7 @@ object RateCalculator{
         val x = 100 * toLong(n.integerNumberPart)
         val y = toLong(n.fractionNumberPart)
         val amount = x + if (n.fractionNumberPart.length == 1) 10 * y else y
-        return  amount
+        return amount
     }
 
     private fun toLong(s: String?): Long {
@@ -45,20 +47,17 @@ object RateCalculator{
     }
 
     fun calculateInCurrencyAmount(rateStr: String,
-                          amountRubStr: NumberStr):NumberStr{
-        val r=requestRate(rateStr)
-        val amountRub =requestAmount(amountRubStr)
-        val resultAmount = Math.round(amountRub/r)
+                                  amountRubStr: NumberStr): NumberStr {
+        val r = requestRate(rateStr)
+        val amountRub = requestAmount(amountRubStr)
+        val resultAmount = Math.round(amountRub / r)
 
         val absAmount = Math.abs(resultAmount)
         val numPart1 = absAmount / 100
         val y = absAmount - 100 * numPart1
-        val numPart2=String.format("%02d", y)
+        val numPart2 = String.format("%02d", y)
         return NumberStr(numPart1.toString(), numPart2.toString())
-
-
     }
-
 }
 
 class NumberStr(val integerNumberPart: String,

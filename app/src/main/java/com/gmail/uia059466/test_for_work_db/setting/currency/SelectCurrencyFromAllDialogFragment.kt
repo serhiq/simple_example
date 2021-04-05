@@ -15,11 +15,7 @@ class SelectCurrencyFromAllDialogFragment : AppCompatDialogFragment() {
 
     override fun onCreateDialog(savedInstanceState: Bundle?): Dialog {
         val locales =getAllCurrencies().toList().filter { !exsistListCurrency.contains(it.currencyCode) }.sortedBy { it.currencyCode }
-//        val availableCurrenciesSet = Currency.getAvailableCurrencies()
-
-//        val currencyList=availableCurrenciesSet.toList().filter { !exsistListCurrency.contains(it.currencyCode) }.sortedBy { it.currencyCode }
         val titlesCurrencyList=locales.map { it.currencyCode + "  ("+it.displayName+")"}
-
 
         return AlertDialog.Builder(requireContext())
             .setTitle(getString(R.string.dialog_select_currency))
@@ -38,17 +34,6 @@ class SelectCurrencyFromAllDialogFragment : AppCompatDialogFragment() {
 
 
     companion object {
-//        private const val CURRENT_THEME = "current_theme"
-//
-//        fun newInstance(currentTheme: Resources.Theme): SelectCurrencyFromAllDialogFragment {
-//            val dialog = SelectCurrencyFromAllDialogFragment()
-//            val args = Bundle().apply {
-//                putString(CURRENT_THEME, currentTheme.rawValue)
-//            }
-//            dialog.arguments = args
-//            return dialog
-//        }
-
 
         fun getAllCurrencies(): Set<Currency> {
             val toret: MutableSet<Currency> = HashSet()

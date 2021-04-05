@@ -11,7 +11,6 @@ import androidx.recyclerview.widget.RecyclerView
 import com.gmail.uia059466.test_for_work_db.R
 import com.gmail.uia059466.test_for_work_db.db.currency.UserCurrency
 
-// todo сделать для анимации аCurrencyAdapterдаптер displatch
 class CurrencyAdapter(private val listener: CurrencyListener)
   : RecyclerView.Adapter<CurrencyAdapter.ViewHolder>() {
   var isEditMode=false
@@ -32,12 +31,7 @@ class CurrencyAdapter(private val listener: CurrencyListener)
       val diffResult = DiffUtil.calculateDiff(diffCallback)
       data.clear()
       data.addAll(newList)
-
       diffResult.dispatchUpdatesTo(this)
-
-
-//    data.clear()
-//    data.addAll(newList)
   }
 
   override fun getItemCount() = data.size
@@ -89,7 +83,7 @@ class CurrencyAdapter(private val listener: CurrencyListener)
 
         override fun areItemsTheSame(oldItemPosition: Int,
                                      newItemPosition: Int): Boolean {
-            return oldList[oldItemPosition].id === newList.get(newItemPosition).id
+            return oldList[oldItemPosition].id == newList.get(newItemPosition).id
         }
 
         override fun areContentsTheSame(oldPosition: Int,

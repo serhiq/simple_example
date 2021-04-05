@@ -5,8 +5,6 @@ import android.os.Bundle
 import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatDialogFragment
 import com.gmail.uia059466.test_for_work_db.R
-import com.gmail.uia059466.test_for_work_db.db.currency.UserCurrency
-import java.util.*
 
 class SelectCurrencyWithRubDialogFragment : AppCompatDialogFragment() {
 

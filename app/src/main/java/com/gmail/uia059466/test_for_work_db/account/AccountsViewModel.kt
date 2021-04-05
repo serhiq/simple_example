@@ -6,7 +6,7 @@ import androidx.lifecycle.viewModelScope
 import com.gmail.uia059466.test_for_work_db.account.accountedit.UserAccount
 import com.gmail.uia059466.test_for_work_db.db.HolderResult
 import com.gmail.uia059466.test_for_work_db.db.LocalDataSource
-import com.gmail.uia059466.test_for_work_db.utls.SingleLiveEvent
+import com.gmail.uia059466.test_for_work_db.utils.SingleLiveEvent
 import kotlinx.coroutines.launch
 
 class AccountsViewModel(

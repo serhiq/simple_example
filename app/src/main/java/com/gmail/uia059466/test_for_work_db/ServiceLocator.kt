@@ -1,4 +1,3 @@
-
 package com.gmail.uia059466.test_for_work_db
 
 import android.content.Context
@@ -11,16 +10,16 @@ object ServiceLocator {
     fun provideListDataSource(context: Context): LocalDataSource {
         synchronized(this) {
 
-        return database ?: createDataBase(context)
+            return database ?: createDataBase(context)
         }
     }
 
     private fun createDataBase(context: Context): LocalDataSource {
-                synchronized(this) {
-                    val result=LocalDataSource(context)
+        synchronized(this) {
+            val result = LocalDataSource(context)
 
-                    database = result
-                    return result
-                }
+            database = result
+            return result
+        }
     }
 }

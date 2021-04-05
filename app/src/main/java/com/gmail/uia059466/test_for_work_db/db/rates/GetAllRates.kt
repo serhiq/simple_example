@@ -3,7 +3,6 @@ package com.gmail.uia059466.test_for_work_db.db.rates
 import android.database.Cursor
 import com.gmail.uia059466.test_for_work_db.db.AppDatabaseHelper
 import com.gmail.uia059466.test_for_work_db.db.HolderResult
-import com.gmail.uia059466.test_for_work_db.db.UserRateTable
 import java.math.BigDecimal
 import java.util.*
 

@@ -11,19 +11,18 @@ import com.gmail.uia059466.test_for_work_db.db.currency.GetAllUserCurrencyNotCom
 import com.gmail.uia059466.test_for_work_db.db.currency.UserCurrency
 import com.gmail.uia059466.test_for_work_db.db.rates.DeleteRates
 import com.gmail.uia059466.test_for_work_db.db.rates.GetAllRates
+import com.gmail.uia059466.test_for_work_db.db.rates.GetLastRateByCurrencyAndDate
 import com.gmail.uia059466.test_for_work_db.db.rates.RatesUser
 import com.gmail.uia059466.test_for_work_db.db.transaction.AddUserTransaction
 import com.gmail.uia059466.test_for_work_db.db.transaction.CreateListTransactionWithCaption
 import com.gmail.uia059466.test_for_work_db.db.transaction.GetAllTransactionDatabase
-import com.gmail.uia059466.test_for_work_db.model.TypeOperation
 import com.gmail.uia059466.test_for_work_db.transaction.DisplayTransaction
-import com.gmail.uia059466.test_for_work_db.transaction.TransactionDataBase
-import com.gmail.uia059466.test_for_work_db.transaction.TransactionDataWithNewAccount
+import com.gmail.uia059466.test_for_work_db.transaction.addedittransaction.TransactionDataWithNewAccount
 import kotlinx.coroutines.CoroutineDispatcher
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.withContext
 import java.lang.Exception
-import java.math.BigDecimal
+import java.util.*
 
 class LocalDataSource(context: Context) {
     private val ioDispatcher: CoroutineDispatcher = Dispatchers.IO
@@ -168,6 +167,20 @@ class LocalDataSource(context: Context) {
             runner.afterPrevious {
                 try {
                     return@afterPrevious DeleteAccount(accountId).execute(db)
+                }catch (e: Exception){
+                    return@afterPrevious HolderResult.Error(e)
+                }finally {
+                }
+            }
+        }
+    }
+
+  suspend  fun getRate(selectedNow: String,
+                   date: Date): HolderResult<String> {
+        return  withContext(ioDispatcher){
+            runner.afterPrevious {
+                try {
+                    return@afterPrevious GetLastRateByCurrencyAndDate(selectedNow,date).execute(db)
                 }catch (e: Exception){
                     return@afterPrevious HolderResult.Error(e)
                 }finally {

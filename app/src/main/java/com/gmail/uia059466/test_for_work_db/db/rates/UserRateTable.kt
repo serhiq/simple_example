@@ -1,4 +1,4 @@
-package com.gmail.uia059466.test_for_work_db.db
+package com.gmail.uia059466.test_for_work_db.db.rates
 
 import android.provider.BaseColumns
 
@@ -12,7 +12,7 @@ object UserRateTable {
     const val COLUMN_CODE_RATE = "rate"
     const val COLUMN_CODE_DATE = "date"
 
-    @JvmField val CREATE = """CREATE TABLE $TABLE_NAME (
+    const val CREATE = """CREATE TABLE $TABLE_NAME (
                                 $COLUMN_ID  INTEGER PRIMARY KEY AUTOINCREMENT, 
                                 $COLUMN_CODE_CURRENCY TEXT NOT NULL, 
                                 $COLUMN_CODE_RATE TEXT NOT NULL, 

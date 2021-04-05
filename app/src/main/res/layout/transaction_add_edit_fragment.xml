@@ -18,29 +18,6 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content" />
 
-        <RadioGroup
-            android:id="@+id/radio_group"
-            android:layout_width="match_parent"
-            android:layout_height="56dp"
-            android:gravity="center"
-            android:orientation="horizontal"
-            android:padding="16dp">
-
-            <RadioButton
-                android:id="@+id/income_rb"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:text="Доход" />
-
-            <RadioButton
-                android:id="@+id/outcome_rb"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:text="Расход" />
-        </RadioGroup>
-
         <View
             android:layout_width="match_parent"
             android:layout_height="1dp"
@@ -359,8 +336,9 @@
                 android:paddingBottom="4dp">
 
                 <ImageView
+                    android:id="@+id/img_account"
                     android:layout_width="24dp"
-                    android:layout_height="24dp"
+                    android:layout_height="wrap_content"
                     android:layout_weight="1"
                     android:maxWidth="48dp"
                     android:maxHeight="48dp"

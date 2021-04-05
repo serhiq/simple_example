@@ -2,10 +2,9 @@ package com.gmail.uia059466.test_for_work_db.db.transaction
 
 import android.content.ContentValues
 import com.gmail.uia059466.test_for_work_db.db.*
-import com.gmail.uia059466.test_for_work_db.transaction.TransactionDataBase
 
 class AddUserTransaction(
-        val t: TransactionDataBase
+        private val t: TransactionDataBase
 ): IDbCommand {
 
     override fun execute(db: AppDatabaseHelper): HolderResult<Long> {

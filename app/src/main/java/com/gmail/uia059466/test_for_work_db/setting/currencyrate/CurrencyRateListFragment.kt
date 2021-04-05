@@ -12,12 +12,8 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.gmail.uia059466.test_for_work_db.MainActivity
 import com.gmail.uia059466.test_for_work_db.R
-import com.gmail.uia059466.test_for_work_db.db.currency.UserCurrency
 import com.gmail.uia059466.test_for_work_db.db.rates.RatesUser
-import com.gmail.uia059466.test_for_work_db.setting.currency.CurrencyAdapter
-import com.gmail.uia059466.test_for_work_db.setting.currency.CurrencyModel
-import com.gmail.uia059466.test_for_work_db.setting.currency.SelectCurrencyFromAllDialogFragment
-import com.gmail.uia059466.test_for_work_db.utls.InjectorUtils
+import com.gmail.uia059466.test_for_work_db.utils.InjectorUtils
 import com.google.android.material.floatingactionbutton.FloatingActionButton
 import com.google.android.material.snackbar.Snackbar
 
@@ -55,7 +51,9 @@ class CurrencyRateListFragment : Fragment(), CurrencyRateAdapter.CurrencyListene
         listRv.layoutManager = LinearLayoutManager(activity)
         listRv.adapter = adapter
 
-        (activity as MainActivity).renderTitle("Курс валют")
+        val title=getString(R.string.rates_list_title)
+        (activity as MainActivity).renderTitle(title)
+
         (activity as MainActivity).supportActionBar?.setDisplayHomeAsUpEnabled(true)
         (activity as MainActivity).hideBottomNavigation()
         (activity as MainActivity).supportActionBar?.setHomeAsUpIndicator(null)
@@ -100,12 +98,6 @@ class CurrencyRateListFragment : Fragment(), CurrencyRateAdapter.CurrencyListene
     override fun onCreateOptionsMenu(menu: Menu, inflater: MenuInflater) {
         menu.clear()
         inflater.inflate(R.menu.currency_edit_menu, menu)
-    }
-
-//    todo
-    override fun onPrepareOptionsMenu(menu: Menu) {
-        val menuRateAs = menu.findItem(R.id.menu_edit_mode)
-//        menuRateAs.isVisible = if ()
     }
 
     override fun onOptionsItemSelected(item: MenuItem): Boolean {

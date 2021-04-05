@@ -2,8 +2,6 @@ package com.gmail.uia059466.test_for_work_db.db.transaction
 
 import com.gmail.uia059466.test_for_work_db.db.HolderResult
 import com.gmail.uia059466.test_for_work_db.transaction.DisplayTransaction
-import com.gmail.uia059466.test_for_work_db.transaction.TransactionDataBase
-import com.gmail.uia059466.test_for_work_db.transaction.asDisplayTransaction
 
 class CreateListTransactionWithCaption {
     suspend fun execute(rawList:List<TransactionDataBase>): HolderResult<List<DisplayTransaction>> {

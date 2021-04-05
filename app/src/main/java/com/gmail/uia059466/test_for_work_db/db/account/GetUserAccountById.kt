@@ -7,7 +7,7 @@ import com.gmail.uia059466.test_for_work_db.db.AppDatabaseHelper
 import com.gmail.uia059466.test_for_work_db.db.HolderResult
 import java.math.BigDecimal
 
-class GetUserAccountById(val rowId: Long) {
+class GetUserAccountById(private val rowId: Long) {
 
     fun execute(db: AppDatabaseHelper): HolderResult<UserAccount> {
 

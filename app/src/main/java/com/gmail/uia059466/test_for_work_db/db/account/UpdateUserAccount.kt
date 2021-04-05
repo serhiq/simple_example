@@ -7,7 +7,7 @@ import com.gmail.uia059466.test_for_work_db.db.HolderResult
 import com.gmail.uia059466.test_for_work_db.db.IDbCommand
 
 class UpdateUserAccount(
-        val account: UserAccount
+    val account: UserAccount
 ) : IDbCommand {
     override fun execute(db: AppDatabaseHelper): HolderResult<Int> {
         val values = ContentValues()
@@ -18,7 +18,8 @@ class UpdateUserAccount(
         val selection: String = AccountTable.COLUMN_ID + " = ?"
         val selectionArgs = arrayOf<String>(java.lang.String.valueOf(account.id))
 
-        val count: Int = db.writableDatabase.update(AccountTable.TABLE_NAME, values, selection, selectionArgs)
+        val count: Int =
+            db.writableDatabase.update(AccountTable.TABLE_NAME, values, selection, selectionArgs)
 
         return HolderResult.Success(count)
     }

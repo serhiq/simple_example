@@ -2,10 +2,7 @@ package com.gmail.uia059466.test_for_work_db.account.accountedit
 
 import android.os.Bundle
 import android.view.*
-import android.widget.EditText
-import android.widget.FrameLayout
-import android.widget.ImageView
-import android.widget.LinearLayout
+import android.widget.*
 import androidx.activity.OnBackPressedCallback
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
@@ -13,8 +10,8 @@ import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.fragment.findNavController
 import com.gmail.uia059466.test_for_work_db.MainActivity
 import com.gmail.uia059466.test_for_work_db.R
-import com.gmail.uia059466.test_for_work_db.utls.InjectorUtils
-import com.gmail.uia059466.test_for_work_db.utls.showKeyboard
+import com.gmail.uia059466.test_for_work_db.utils.InjectorUtils
+import com.gmail.uia059466.test_for_work_db.utils.showKeyboard
 import com.google.android.material.snackbar.Snackbar
 
 class AddEditAccountFragment : Fragment() {
@@ -24,11 +21,11 @@ class AddEditAccountFragment : Fragment() {
     private lateinit var content: LinearLayout
 
     private lateinit var caption: LinearLayout
+    private lateinit var tvCaption: TextView
 
     private lateinit var etTitleAccount: EditText
     private lateinit var flIconAccount: FrameLayout
     private lateinit var imgIconAccount: ImageView
-
 
     override fun onViewCreated(view: View,
                                savedInstanceState: Bundle?) {
@@ -55,6 +52,7 @@ class AddEditAccountFragment : Fragment() {
         content = view.findViewById(R.id.add_edit_account_content)
 
         caption = view.findViewById(R.id.caption_ll)
+        tvCaption = view.findViewById(R.id.text)
 
         imgIconAccount = view.findViewById(R.id.account_img)
         flIconAccount = view.findViewById(R.id.icon_fl)
@@ -104,10 +102,11 @@ class AddEditAccountFragment : Fragment() {
                 if (isEditMode) {
                     (activity as MainActivity).renderTitle("")
                     caption.visibility = View.VISIBLE
-
+                    tvCaption.visibility=View.VISIBLE
                 } else {
                     caption.visibility = View.GONE
-                    (activity as MainActivity).renderTitle("Новый счет")
+                    val title=getString(R.string.add_edit_account_title)
+                    (activity as MainActivity).renderTitle(title)
                 }
             }
         })

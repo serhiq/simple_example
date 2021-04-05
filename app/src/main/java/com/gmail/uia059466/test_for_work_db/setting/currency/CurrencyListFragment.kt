@@ -13,18 +13,15 @@ import androidx.recyclerview.widget.RecyclerView
 import com.gmail.uia059466.test_for_work_db.MainActivity
 import com.gmail.uia059466.test_for_work_db.R
 import com.gmail.uia059466.test_for_work_db.db.currency.UserCurrency
-import com.gmail.uia059466.test_for_work_db.utls.InjectorUtils
+import com.gmail.uia059466.test_for_work_db.utils.InjectorUtils
 import com.google.android.material.floatingactionbutton.FloatingActionButton
 import com.google.android.material.snackbar.Snackbar
 
 class CurrencyListFragment :Fragment(), CurrencyAdapter.CurrencyListener{
 
-// todo   если в списке только один рубль режим редактирования не отображается
-
     private lateinit var coordinatorLayout: CoordinatorLayout
 
     private lateinit var listRv: RecyclerView
-    val cachedCurrenteCode= mutableListOf<String>()
     private lateinit var viewModel: CurrencyModel
 
     private val adapter = CurrencyAdapter(this)
@@ -65,7 +62,8 @@ class CurrencyListFragment :Fragment(), CurrencyAdapter.CurrencyListener{
         listRv.layoutManager = LinearLayoutManager(activity)
         listRv.adapter = adapter
 
-        (activity as MainActivity).renderTitle("Валюты")
+        val title=getString(R.string.currencies_list_title)
+        (activity as MainActivity).renderTitle(title)
         (activity as MainActivity).hideBottomNavigation()
 
         (activity as MainActivity).supportActionBar?.setDisplayHomeAsUpEnabled(true)
@@ -85,7 +83,7 @@ class CurrencyListFragment :Fragment(), CurrencyAdapter.CurrencyListener{
         })
         viewModel.snackbarText.observe(viewLifecycleOwner, Observer {
             it?.let {text->
-                val snackBar = Snackbar.make(coordinatorLayout,it, Snackbar.LENGTH_LONG)
+                val snackBar = Snackbar.make(coordinatorLayout,text, Snackbar.LENGTH_LONG)
                 snackBar.show()
             }
         })
@@ -101,18 +99,6 @@ class CurrencyListFragment :Fragment(), CurrencyAdapter.CurrencyListener{
         val viewModelFactory = InjectorUtils.provideViewModelFactory(application)
         viewModel = ViewModelProvider(this, viewModelFactory)[CurrencyModel::class.java]
     }
-
-
-    private fun navigateToNewList() {
-//
-//        val action=R.id.action_navigation_account_to_editAccountFragment
-////        val bundle = bundleOf("mode" to SelectAdapter.MODE_SELECT)
-//        findNavController().navigate(action)
-
-
-//        (activity as MainActivityImpl).openNewList()
-    }
-
 
     override fun onCreateOptionsMenu(menu: Menu, inflater: MenuInflater) {
         menu.clear()
@@ -135,8 +121,6 @@ class CurrencyListFragment :Fragment(), CurrencyAdapter.CurrencyListener{
             R.id.menu_edit_mode -> {
                 adapter.isEditMode=!adapter.isEditMode
                 adapter.notifyDataSetChanged()
-
-//                viewModel.enableFavoritesSelect()
                 return true
             }
         }
