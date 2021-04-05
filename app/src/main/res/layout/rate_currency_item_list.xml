@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="utf-8"?><!--todo rename-->
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/currencies_rv"
+    android:layout_width="match_parent"
+    android:layout_height="64dp"
+    android:clickable="false"
+    android:focusable="false"
+    android:paddingStart="?attr/listPreferredItemPaddingStart"
+    android:paddingTop="16dip"
+    android:paddingEnd="?attr/listPreferredItemPaddingEnd"
+    android:paddingBottom="16dip">
+
+    <TextView
+        android:id="@+id/currencies_title_tv"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_centerVertical="true"
+        android:layout_marginStart="8dp"
+        android:layout_toLeftOf="@+id/delete_fl"
+        android:ellipsize="end"
+        android:maxLines="1"
+        android:singleLine="true"
+        tools:text="72.22555"
+        android:textAppearance="?android:attr/textAppearanceListItem" />
+
+    <FrameLayout
+        android:id="@+id/delete_fl"
+        android:layout_width="48dp"
+        android:layout_height="48dp"
+        android:layout_alignParentEnd="true"
+        android:layout_centerVertical="true"
+        tools:visibility="visible">
+
+        <ImageView
+            android:id="@+id/delete_img"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:visibility="visible"
+            app:srcCompat="@drawable/ic_clear" />
+    </FrameLayout>
+</RelativeLayout>

@@ -1,0 +1,66 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/currencies_rv"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:clickable="false"
+    android:focusable="false"
+    android:paddingStart="?attr/listPreferredItemPaddingStart"
+    android:paddingTop="16dip"
+    android:paddingEnd="?attr/listPreferredItemPaddingEnd"
+    android:paddingBottom="16dip">
+
+    <Space
+        android:id="@+id/currencies_space"
+        android:layout_width="48dp"
+        android:layout_height="48dp"
+        android:layout_marginStart="-4dp"
+        android:minWidth="60dp" />
+
+    <!--todo чтобы не забегало-->
+    <TextView
+        android:id="@+id/currencies_title_tv"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="8dp"
+        android:layout_toLeftOf="@+id/delete_fl"
+        android:layout_toEndOf="@id/currencies_space"
+        android:ellipsize="end"
+        android:maxLines="1"
+        android:singleLine="true"
+        android:text="Валюты"
+        android:textAppearance="?android:attr/textAppearanceListItem" />
+
+    <TextView
+        android:id="@+id/currencies_description_tv"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/currencies_title_tv"
+        android:layout_alignStart="@id/currencies_title_tv"
+        android:layout_marginStart="0dp"
+        android:layout_marginTop="0dp"
+        android:layout_toLeftOf="@+id/delete_fl"
+        android:maxLines="1"
+        android:textAppearance="?android:attr/textAppearanceListItemSecondary"
+        android:textColor="?android:attr/textColorSecondary" />
+
+    <FrameLayout
+        android:id="@+id/delete_fl"
+        android:layout_width="48dp"
+        android:layout_height="48dp"
+        android:layout_alignParentEnd="true"
+        android:layout_centerVertical="true"
+        android:visibility="gone"
+        tools:visibility="visible">
+
+        <ImageView
+            android:id="@+id/delete_img"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:visibility="visible"
+            app:srcCompat="@drawable/ic_clear" />
+    </FrameLayout>
+</RelativeLayout>

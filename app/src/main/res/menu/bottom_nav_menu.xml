@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <item
+        android:id="@+id/navigation_accounts_list"
+        android:icon="@drawable/ic_card_bottom"
+        android:title="Счета" />
+
+    <item
+        android:id="@+id/navigation_transaction"
+        android:icon="@drawable/ic_transaction_bottom"
+        android:title="Транзакции" />
+
+    <item
+        android:id="@+id/navigate_setting"
+        android:icon="@drawable/ic_menu_bottom"
+        android:title="Еще" />
+
+</menu>

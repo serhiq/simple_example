@@ -1,0 +1,27 @@
+<resources>
+    <string name="app_name">test_for_work_db</string>
+
+<!--Диалог для выбор валют-->
+    <string name="dialog_select_currency">Валюты</string>
+    <string name="no_delete_rub">Основную валюту удалить нелья</string>
+    <string name="dialog_select_currency_in">В валюту</string>
+    <string name="no_correct_rate">Курс не заполнен</string>
+    <string name="no_correct_number_format">Неверно заполнен курс, проверьте формат</string>
+    <string name="setting_app_bar_label">Настройки</string>
+    <string name="dialog_select_icon_account_title">Выбирите иконку</string>
+
+
+    <string name="no_correct_title_account">Название счета не может быть пустым</string>
+
+
+    <!-- Dialog delete   -->
+    <string name="dialog_delete_user_title">Удалить счет</string>
+    <string name="dialog_delete_user_message">Все транзакции будут удалены вместе со счетом.</string>
+    <string name="dialog_delete_user_button">Удалить</string>
+
+    <!--Transaction-->
+    <string name="dialog_select_currency_transaction">Валюта операции</string>
+    <string name="summ_zero">Сумма не может быть 0</string>
+
+
+</resources>

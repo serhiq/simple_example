@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <item
+        android:visible="true"
+        app:showAsAction="always"
+        android:id="@+id/menu_edit_mode"
+        android:title="Редактированние"
+        android:icon="@drawable/adapter_ic_edit"/>
+</menu>

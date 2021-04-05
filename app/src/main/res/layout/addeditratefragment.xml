@@ -1,0 +1,230 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/addedit_content"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:gravity="center_vertical"
+    android:minHeight="?android:attr/listPreferredItemHeight"
+    android:orientation="vertical">
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:background="?attr/viewDivider" />
+
+    <RelativeLayout
+        android:id="@+id/date_rl"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:clickable="false"
+        android:focusable="false"
+        android:paddingStart="?attr/listPreferredItemPaddingStart"
+        android:paddingTop="8dip"
+        android:paddingEnd="?attr/listPreferredItemPaddingEnd"
+        android:paddingBottom="8dip">
+
+        <LinearLayout
+            android:id="@+id/img_ll"
+            android:layout_width="48dp"
+            android:layout_height="48dp"
+            android:layout_marginStart="-4dp"
+            android:gravity="start|center_vertical"
+            android:minWidth="50dp"
+            android:orientation="horizontal"
+            android:paddingTop="4dp"
+            android:paddingEnd="12dp"
+            android:paddingBottom="4dp">
+
+            <ImageView
+                android:layout_width="24dp"
+                android:layout_height="24dp"
+                android:layout_weight="1"
+                android:maxWidth="48dp"
+                android:maxHeight="48dp"
+                app:srcCompat="@drawable/ic_date" />
+        </LinearLayout>
+
+
+        <TextView
+            android:id="@+id/date_tv"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerVertical="true"
+            android:layout_marginStart="8dp"
+            android:layout_toEndOf="@id/img_ll"
+            android:maxLines="1"
+            android:text="30/02/2012"
+            android:textAppearance="?android:attr/textAppearanceListItem" />
+    </RelativeLayout>
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:background="?attr/viewDivider" />
+
+    <RelativeLayout
+        android:id="@+id/from_rl"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_weight="1"
+        android:clickable="false"
+        android:focusable="false"
+        android:paddingStart="?attr/listPreferredItemPaddingStart"
+        android:paddingTop="16dip"
+        android:paddingEnd="?attr/listPreferredItemPaddingEnd"
+        android:paddingBottom="16dip">
+
+        <Space
+            android:id="@+id/img_4"
+            android:layout_width="48dp"
+            android:layout_height="48dp"
+            android:layout_marginStart="-4dp"
+            android:minWidth="60dp" />
+
+
+        <TextView
+            android:id="@+id/from_title_tv"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="8dp"
+            android:layout_toEndOf="@id/img_4"
+            android:singleLine="true"
+            android:text="Из валюты"
+            android:textAppearance="?android:attr/textAppearanceListItem" />
+
+        <TextView
+            android:id="@+id/from_des_tv"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/from_title_tv"
+            android:layout_alignStart="@id/from_title_tv"
+            android:maxLines="1"
+            android:text="RUB"
+            android:textAppearance="?android:attr/textAppearanceListItemSecondary"
+            android:textColor="?android:attr/textColorSecondary" />
+    </RelativeLayout>
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:background="?attr/viewDivider" />
+
+    <RelativeLayout
+        android:id="@+id/select_currency_rl"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_weight="1"
+        android:clickable="false"
+        android:focusable="false"
+        android:paddingStart="?attr/listPreferredItemPaddingStart"
+        android:paddingTop="16dip"
+        android:paddingEnd="?attr/listPreferredItemPaddingEnd"
+        android:paddingBottom="16dip">
+
+        <Space
+            android:id="@+id/img_3"
+            android:layout_width="48dp"
+            android:layout_height="48dp"
+            android:layout_marginStart="-4dp"
+            android:minWidth="60dp" />
+
+
+        <TextView
+            android:id="@+id/currency_title_tv"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="8dp"
+            android:layout_toEndOf="@id/img_3"
+            android:singleLine="true"
+            android:text="В валюту"
+            android:textAppearance="?android:attr/textAppearanceListItem" />
+
+        <TextView
+            android:id="@+id/current_currency_tv"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/currency_title_tv"
+            android:layout_alignStart="@id/currency_title_tv"
+            android:maxLines="1"
+            android:text="EUR"
+            android:textAppearance="?android:attr/textAppearanceListItemSecondary"
+            android:textColor="?android:attr/textColorSecondary" />
+    </RelativeLayout>
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:background="?attr/viewDivider" />
+
+    <LinearLayout
+        android:id="@+id/currency_container_layout"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:baselineAligned="false"
+        android:gravity="center_vertical"
+        android:minHeight="60dp"
+        android:orientation="horizontal"
+        android:paddingStart="?attr/listPreferredItemPaddingStart"
+        android:paddingTop="12dip"
+        android:paddingEnd="?attr/listPreferredItemPaddingEnd"
+        android:paddingRight="?android:attr/scrollbarSize"
+        android:paddingBottom="16dip">
+
+        <RelativeLayout
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="8dp"
+            android:layout_weight="1"
+            android:duplicateParentState="true">
+
+            <TextView
+                android:id="@+id/label"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="16dp"
+                android:duplicateParentState="true"
+                android:ellipsize="marquee"
+                android:fadingEdge="horizontal"
+                android:singleLine="true"
+                android:text="Курс"
+                android:textStyle="bold" />
+
+            <ImageButton
+                android:id="@+id/rate_download_img"
+                android:layout_width="48dp"
+                android:layout_height="48dp"
+                android:layout_alignParentRight="true"
+                android:layout_centerVertical="true"
+                android:background="@null"
+                android:src="@drawable/ic_baseline_download_24" />
+
+            <EditText
+                android:id="@+id/rate"
+                style="@style/TextAppearance.MaterialComponents.Headline6"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/label"
+                android:layout_alignLeft="@+id/label"
+                android:layout_marginStart="48dp"
+                android:layout_marginTop="8dp"
+                android:layout_toLeftOf="@+id/rate_download_img"
+                android:background="@null"
+                android:digits="0123456789.,"
+                android:inputType="number|numberDecimal"
+                android:text="0.0" />
+
+            <TextView
+                android:id="@+id/rate_description_tv"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/rate"
+                android:layout_alignLeft="@+id/rate"
+                android:layout_marginTop="8dp"
+                android:duplicateParentState="true"
+                android:maxLines="2"
+                android:text="1 EUR = 89,222RUB  1 RUB  =0.0000 EUR2"
+                android:textAppearance="?android:attr/textAppearanceSmall" />
+        </RelativeLayout>
+    </LinearLayout>
+</LinearLayout>

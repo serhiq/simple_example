@@ -1,0 +1,70 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto" android:id="@+id/moblie_navigation"
+    app:startDestination="@id/navigation_accounts_list">
+
+    <fragment
+        android:id="@+id/currencyListFragment"
+        android:name="com.gmail.uia059466.test_for_work_db.setting.currency.CurrencyListFragment"
+        android:label="CurrencyListFragment" />
+    <fragment
+        android:id="@+id/addEditRateFragment"
+        android:name="com.gmail.uia059466.test_for_work_db.setting.rateedit.AddEditRateFragment"
+        android:label="AddEditRateFragment" />
+    <fragment
+        android:id="@+id/currencyRateListFragment"
+        android:name="com.gmail.uia059466.test_for_work_db.setting.currencyrate.CurrencyRateListFragment"
+        android:label="CurrencyRateListFragment" >
+        <action
+            android:id="@+id/action_currencyRateListFragment_to_addEditRateFragment"
+            app:destination="@id/addEditRateFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/navigate_setting"
+        android:name="com.gmail.uia059466.test_for_work_db.setting.SettingFragment"
+        android:label="SettingFragment" >
+        <action
+            android:id="@+id/action_settingFragment_to_currencyRateListFragment"
+            app:destination="@id/currencyRateListFragment" />
+        <action
+            android:id="@+id/action_settingFragment_to_currencyListFragment"
+            app:destination="@id/currencyListFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/addEditAccountFragment"
+        android:name="com.gmail.uia059466.test_for_work_db.account.accountedit.AddEditAccountFragment"
+        android:label="AddEditAccountFragment" />
+    <fragment
+        android:id="@+id/navigation_accounts_list"
+        android:name="com.gmail.uia059466.test_for_work_db.account.AccountsListFragment"
+        android:label="AccountsListFragment" >
+        <action
+            android:id="@+id/action_accountsListFragment_to_addEditAccountFragment"
+            app:destination="@id/addEditAccountFragment" />
+        <action
+            android:id="@+id/action_accountsListFragment_to_accountDisplayFragment"
+            app:destination="@id/accountDisplayFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/accountDisplayFragment"
+        android:name="com.gmail.uia059466.test_for_work_db.account.accountdisplay.AccountDisplayFragment"
+        android:label="AccountDisplayFragment" >
+        <action
+            android:id="@+id/action_accountDisplayFragment_to_addEditAccountFragment"
+            app:destination="@id/addEditAccountFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/navigation_transaction"
+        android:name="com.gmail.uia059466.test_for_work_db.transaction.TransactionListFragment"
+        android:label="TransactionListFragment" >
+        <action
+            android:id="@+id/action_navigation_transaction_to_addEditTransactionFragment"
+            app:destination="@id/addEditTransactionFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/addEditTransactionFragment"
+        android:name="com.gmail.uia059466.test_for_work_db.transaction.addedittransaction.AddEditTransactionFragment"
+        android:label="AddEditTransactionFragment" />
+
+
+</navigation>

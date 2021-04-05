@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <declare-styleable name="AppTheme">
+        <!--Общие атрибуты для всех-->
+        <attr name="big_space" format="color" />
+        <attr name="color_secondary_alpha" format="color" />
+        <attr name="text_dark_onSecondaryAlpha" format="color" />
+
+        <attr name="high_attention_icon_onSpace" format="color" />
+        <attr name="low_attention_icon_onSpace" format="color" />
+
+        <attr name="viewDivider" format="color" />
+
+    </declare-styleable>
+</resources>
