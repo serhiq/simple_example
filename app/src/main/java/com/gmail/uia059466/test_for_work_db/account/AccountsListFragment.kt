@@ -36,7 +36,7 @@ class AccountsListFragment : Fragment(), AccountsAdapter.AccountListListener {
                 container,
                 false
         )
-        coordinatorLayout = view.findViewById<CoordinatorLayout>(R.id.currency_list_content)
+        coordinatorLayout = view.findViewById<CoordinatorLayout>(R.id.accounts_list_content)
 
         listRv = view.findViewById(R.id.list)
 
