@@ -30,10 +30,8 @@ class LocalDataSource(context: Context) {
     val db =AppDatabaseHelper.getInstance(context)
     private val runner= DataBaseRunner()
 
-    suspend fun reset(){
-        runner.afterPrevious {
-            db.reset()
-        }
+    fun resetDb(){
+        db.reset()
     }
 
     suspend fun execute(command: IDbCommand): IResultDbCommand {
