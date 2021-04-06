@@ -28,7 +28,7 @@ object ServiceLocator {
     @VisibleForTesting
     fun resetDatabase() {
         synchronized(lock) {
-            database?.resetDb()
+            database?.reset()
             database = null
         }
     }
