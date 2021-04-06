@@ -48,6 +48,11 @@ class AppDatabaseHelper private constructor(
     fun reset() {
         with(writableDatabase) {
             delete(UserCurrencyTable.TABLE_NAME, null, null)
+            delete(UserCurrencyTable.TABLE_NAME, null, null)
+            delete(UserRateTable.TABLE_NAME, null, null)
+            delete(AccountTable.TABLE_NAME, null, null)
+            delete(TransactionTable.TABLE_NAME, null, null)
+
             fillAccountAndCurrencies(this)
         }
     }
