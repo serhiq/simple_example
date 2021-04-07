@@ -10,7 +10,7 @@ import org.junit.After
 import org.junit.Before
 import org.junit.Test
 
-class AccountTest : BaseTest() {
+class CreateAccountTest : BaseTest() {
 
     private lateinit var db: LocalDataSource
 
