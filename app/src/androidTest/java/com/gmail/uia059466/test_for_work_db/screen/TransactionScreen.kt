@@ -7,6 +7,7 @@ import androidx.test.espresso.matcher.ViewMatchers
 import androidx.test.espresso.matcher.ViewMatchers.withId
 import androidx.test.uiautomator.UiDevice
 import com.gmail.uia059466.test_for_work_db.R
+import com.gmail.uia059466.test_for_work_db.screen.dialog.SelectCurrencyDialogScreen
 import com.gmail.uia059466.test_for_work_db.utils.BaseScreen
 
 class TransactionScreen(on: UiDevice) : BaseScreen(on) {
@@ -60,5 +61,47 @@ class TransactionScreen(on: UiDevice) : BaseScreen(on) {
         Espresso.onView(withId(R.id.menu_save)).perform(ViewActions.click())
         val new = AccountListScreen(device)
         new.waitForScreenToBeDisplayed()
+    }
+
+    fun tapOnCurrency(): SelectCurrencyDialogScreen {
+
+        Espresso.onView(withId(currencyRv)).perform(ViewActions.click())
+        val new = SelectCurrencyDialogScreen(device)
+        new.waitForDialogToBeDisplayed()
+        return new
+    }
+
+    fun checkCurrencyContainerDisplayed() {
+
+//        currencyRv
+//        TODO("Not yet implemented")
+    }
+
+    fun inputAmountInCurrency(number: String) {
+        val parts = number.split(",")
+        Espresso.onView(withId(etAmountSecondaryInteger)).perform(
+                ViewActions.replaceText(parts[0]),
+                ViewActions.closeSoftKeyboard()
+        )
+        Espresso.onView(withId(etAmountSecondaryFloat)).perform(
+                ViewActions.replaceText(parts[1]),
+                ViewActions.closeSoftKeyboard()
+        )
+    }
+
+    fun checkSumInRub(number: String) {
+        val parts = number.split(",")
+        Espresso.onView(ViewMatchers.withId(etAmountPrimaryInteger))
+                .check(ViewAssertions.matches(ViewMatchers.withText(parts[0])))
+
+        Espresso.onView(ViewMatchers.withId(etAmountPrimaryFloat))
+                .check(ViewAssertions.matches(ViewMatchers.withText(parts[1])))
+    }
+
+    fun inputRate(rate: String) {
+        Espresso.onView(withId(etRate)).perform(
+                ViewActions.replaceText(rate),
+                ViewActions.closeSoftKeyboard()
+        )
     }
 }
