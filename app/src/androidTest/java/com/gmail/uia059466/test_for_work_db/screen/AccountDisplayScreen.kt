@@ -7,6 +7,7 @@ import androidx.test.espresso.matcher.ViewMatchers
 import androidx.test.espresso.matcher.ViewMatchers.withId
 import androidx.test.uiautomator.UiDevice
 import com.gmail.uia059466.test_for_work_db.R
+import com.gmail.uia059466.test_for_work_db.screen.dialog.DeleteDialogScreen
 import com.gmail.uia059466.test_for_work_db.utils.BaseScreen
 
 class AccountDisplayScreen(on: UiDevice) : BaseScreen(on) {
@@ -27,8 +28,11 @@ class AccountDisplayScreen(on: UiDevice) : BaseScreen(on) {
             .check(ViewAssertions.matches(ViewMatchers.hasDescendant(ViewMatchers.withText(title))))
     }
 
-    fun clickOnDelete() {
+    fun clickOnDelete(): DeleteDialogScreen {
         Espresso.onView(withId(deleteFl)).perform(ViewActions.click())
+        val new = DeleteDialogScreen(device)
+        new.waitForScreenToBeDisplayed()
+        return new
     }
 
     fun clickOnEdit() {
