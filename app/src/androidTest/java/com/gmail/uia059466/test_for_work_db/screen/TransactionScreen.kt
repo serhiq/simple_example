@@ -8,6 +8,7 @@ import androidx.test.espresso.matcher.ViewMatchers.withId
 import androidx.test.uiautomator.UiDevice
 import com.gmail.uia059466.test_for_work_db.R
 import com.gmail.uia059466.test_for_work_db.screen.dialog.SelectCurrencyDialogScreen
+import com.gmail.uia059466.test_for_work_db.screen.dialog.SelectDateDialogScreen
 import com.gmail.uia059466.test_for_work_db.utils.BaseScreen
 
 class TransactionScreen(on: UiDevice) : BaseScreen(on) {
@@ -71,37 +72,42 @@ class TransactionScreen(on: UiDevice) : BaseScreen(on) {
         return new
     }
 
-    fun checkCurrencyContainerDisplayed() {
-
-//        currencyRv
-//        TODO("Not yet implemented")
-    }
-
     fun inputAmountInCurrency(number: String) {
         val parts = number.split(",")
         Espresso.onView(withId(etAmountSecondaryInteger)).perform(
-                ViewActions.replaceText(parts[0]),
-                ViewActions.closeSoftKeyboard()
+            ViewActions.replaceText(parts[0]),
+            ViewActions.closeSoftKeyboard()
         )
         Espresso.onView(withId(etAmountSecondaryFloat)).perform(
-                ViewActions.replaceText(parts[1]),
-                ViewActions.closeSoftKeyboard()
+            ViewActions.replaceText(parts[1]),
+            ViewActions.closeSoftKeyboard()
         )
     }
 
     fun checkSumInRub(number: String) {
         val parts = number.split(",")
         Espresso.onView(ViewMatchers.withId(etAmountPrimaryInteger))
-                .check(ViewAssertions.matches(ViewMatchers.withText(parts[0])))
+            .check(ViewAssertions.matches(ViewMatchers.withText(parts[0])))
 
         Espresso.onView(ViewMatchers.withId(etAmountPrimaryFloat))
-                .check(ViewAssertions.matches(ViewMatchers.withText(parts[1])))
+            .check(ViewAssertions.matches(ViewMatchers.withText(parts[1])))
     }
 
     fun inputRate(rate: String) {
         Espresso.onView(withId(etRate)).perform(
-                ViewActions.replaceText(rate),
-                ViewActions.closeSoftKeyboard()
+            ViewActions.replaceText(rate),
+            ViewActions.closeSoftKeyboard()
         )
+    }
+
+    fun tapOnDate(): SelectDateDialogScreen {
+        Espresso.onView(withId(dateRv)).perform(ViewActions.click())
+        return SelectDateDialogScreen(device)
+    }
+
+    fun checkRate(rate: String) {
+        Espresso.onView(ViewMatchers.withId(etRate))
+            .check(ViewAssertions.matches(ViewMatchers.withText(rate)))
+
     }
 }

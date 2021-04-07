@@ -38,7 +38,6 @@ class TransactionTestEuro : BaseTest() {
             dialog.selectCurrency("EUR")
             operation.waitForScreenToBeDisplayed()
 
-            operation.checkCurrencyContainerDisplayed()
             operation.inputAmountInCurrency("100,00")
             operation.checkSumInRub("100,00")
             sleep(300)
@@ -46,6 +45,8 @@ class TransactionTestEuro : BaseTest() {
             sleep(300)
             accountDetailScreen.checkAmount("100")
             sleep(500)
+            activityScenario.close()
+
         }
     }
 
@@ -67,7 +68,6 @@ class TransactionTestEuro : BaseTest() {
             dialog.selectCurrency("EUR")
             operation.waitForScreenToBeDisplayed()
 
-            operation.checkCurrencyContainerDisplayed()
             operation.inputAmountInCurrency("100,00")
             operation.inputRate("50,600121")
             operation.checkSumInRub("5060,01")
