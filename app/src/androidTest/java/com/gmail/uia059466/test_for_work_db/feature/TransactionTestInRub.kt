@@ -65,17 +65,78 @@ class TransactionTestInRub : BaseTest() {
             val operation = accountDetailScreen.clickOnIncome()
             operation.inputAmountInRub("10,50")
             operation.pressOnSave()
-            sleep(500)
+            sleep(30)
             accountDetailScreen.checkAmount("10,5")
 
             //      проверка суммы на экране списка счетов
             device.pressBack()
-            sleep(1000)
+            sleep(300)
 
             accountsScreen.checkItemView(0, "Тестовый", "10,5")
             activityScenario.close()
         }
     }
+
+    @Test
+    fun createOneOutcomeOperationInteger() {
+        runBlocking {
+            insertTestAccount()
+
+            val activityScenario = ActivityScenario.launch(MainActivity::class.java)
+
+//      Given
+            val accountsScreen = AccountListScreen(device)
+            val accountDetailScreen = accountsScreen.clickOnList(0)
+            accountDetailScreen.checkAmount("0")
+            accountDetailScreen.checkTitle("Тестовый")
+
+            val operation = accountDetailScreen.clickOnOutcome()
+            operation.inputAmountInRub("10,00")
+            operation.pressOnSave()
+
+//       проверка суммы на экране счета
+            accountDetailScreen.checkAmount("-10")
+            sleep(300)
+
+//      проверка суммы на экране списка счетов
+            device.pressBack()
+            sleep(300)
+
+            accountsScreen.checkItemView(0, "Тестовый", "-10")
+            activityScenario.close()
+        }
+    }
+
+    @Test
+    fun createOneOutcomeOperationFloat() {
+        runBlocking {
+            insertTestAccount()
+            val activityScenario = ActivityScenario.launch(MainActivity::class.java)
+
+//      Given
+            val accountsScreen = AccountListScreen(device)
+            val accountDetailScreen = accountsScreen.clickOnList(0)
+            accountDetailScreen.checkAmount("0")
+            accountDetailScreen.checkTitle("Тестовый")
+
+            val operation = accountDetailScreen.clickOnOutcome()
+            operation.inputAmountInRub("10,50")
+            operation.pressOnSave()
+            sleep(300)
+            accountDetailScreen.checkAmount("-10,5")
+
+            //      проверка суммы на экране списка счетов
+            device.pressBack()
+            sleep(300)
+
+            accountsScreen.checkItemView(0, "Тестовый", "-10,5")
+            activityScenario.close()
+        }
+    }
+
+
+
+
 
     private suspend fun insertTestAccount() {
         db.execute(
