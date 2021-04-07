@@ -134,9 +134,52 @@ class TransactionTestInRub : BaseTest() {
         }
     }
 
+    @Test
+    fun createTwoIncomeTwoOutcomeOperation() {
+        runBlocking {
+            insertTestAccount()
+            val activityScenario = ActivityScenario.launch(MainActivity::class.java)
+
+//      Given
+            val accountsScreen = AccountListScreen(device)
+            val accountDetailScreen = accountsScreen.clickOnList(0)
+            accountDetailScreen.checkAmount("0")
+            accountDetailScreen.checkTitle("Тестовый")
+
+            val operation = accountDetailScreen.clickOnOutcome()
+            operation.inputAmountInRub("10,50")
+            operation.pressOnSave()
+            sleep(300)
+            accountDetailScreen.checkAmount("-10,5")
+
+            accountDetailScreen.clickOnOutcome()
+            operation.inputAmountInRub("10,50")
+            operation.pressOnSave()
+            sleep(300)
+            accountDetailScreen.checkAmount("-21")
+
+            accountDetailScreen.clickOnIncome()
+            operation.inputAmountInRub("100,1")
+            operation.pressOnSave()
+            sleep(300)
+            accountDetailScreen.checkAmount("79,1")
+
+            accountDetailScreen.clickOnIncome()
+            operation.inputAmountInRub("20,75")
+            operation.pressOnSave()
+            sleep(300)
+            accountDetailScreen.checkAmount("99,85")
 
 
 
+            //      проверка суммы на экране списка счетов
+            device.pressBack()
+            sleep(300)
+
+            accountsScreen.checkItemView(0, "Тестовый", "99,85")
+            activityScenario.close()
+        }
+    }
 
     private suspend fun insertTestAccount() {
         db.execute(
