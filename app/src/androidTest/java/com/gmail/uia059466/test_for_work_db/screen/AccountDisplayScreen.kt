@@ -27,7 +27,6 @@ class AccountDisplayScreen(on: UiDevice) : BaseScreen(on) {
             .check(ViewAssertions.matches(ViewMatchers.hasDescendant(ViewMatchers.withText(title))))
     }
 
-
     fun clickOnDelete() {
         Espresso.onView(withId(deleteFl)).perform(ViewActions.click())
     }
